@@ -287,7 +287,25 @@
                 <div class="tag-title center-align">
                     <i class="fas fa-comments"></i>&nbsp;&nbsp;留言板
                 </div>
-                
+                <script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
         </div>
         <div class="card">
@@ -351,16 +369,17 @@
                 
             
             
-                <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_container_site_pv" style="display: inline-block">
                 |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                                                                        class="white-color"></span>&nbsp;次
+                                                                        class="white-color"
+                    style="display: inline-block"></span>&nbsp;次
             </span>
             
             
-                <span id="busuanzi_container_site_uv" style="/*display: none*/">
-                &nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                <span id="busuanzi_container_site_uv" style="display: inline-block">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
                                                                           class="white-color"
-                                                                          style="/*display: none*/"></span>&nbsp;人
+                                                                          style="display: inline-block"></span>&nbsp;人
             </span>
             
             <br>

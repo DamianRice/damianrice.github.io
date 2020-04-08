@@ -295,21 +295,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">1</a></span>
+    <span class="count"><a href="/">2</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">1</a></span>
+    <span class="count"><a href="/categories">2</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">2</a></span>
+    <span class="count"><a href="/tags">4</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -326,21 +326,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">1</a></span>
+    <span class="count"><a href="/">2</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">1</a></span>
+    <span class="count"><a href="/categories">2</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">2</a></span>
+    <span class="count"><a href="/tags">4</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -468,7 +468,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,1],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,2],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -510,7 +510,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"杂谈","value":1}],
+                data: [{"name":"杂谈","value":2},{"name":"Python学习","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -534,7 +534,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["博客","规划"]
+                data: ["博客","规划","入门","python大法好"]
             }
         ],
         yAxis: [
@@ -547,7 +547,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [1,1],
+                data: [1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -653,6 +653,18 @@
             </a>
             
             
+            
+            <a href="/tags/%E5%85%A5%E9%97%A8/">
+                <span class="chip center-align waves-effect waves-light chip-default">入门</span>
+            </a>
+            
+            
+            
+            <a href="/tags/python%E5%A4%A7%E6%B3%95%E5%A5%BD/">
+                <span class="chip center-align waves-effect waves-light chip-default">python大法好</span>
+            </a>
+            
+            
         </div>
     </div>
     
@@ -670,7 +682,25 @@
                 <div class="card-content article-card-content">
                     <div class="title center-align" data-aos="zoom-in-up"><i
                                 class="fa fa-address-book"></i>&nbsp;&nbsp;myCV </div>
-                    <div id="articleContent" data-aos="fade-up">  </div>
+                    <div id="articleContent" data-aos="fade-up"> <script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> </div>
                 </div>
             </div>
         </div>
@@ -696,16 +726,17 @@
                 
             
             
-                <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_container_site_pv" style="display: inline-block">
                 |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                                                                        class="white-color"></span>&nbsp;次
+                                                                        class="white-color"
+                    style="display: inline-block"></span>&nbsp;次
             </span>
             
             
-                <span id="busuanzi_container_site_uv" style="/*display: none*/">
-                &nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                <span id="busuanzi_container_site_uv" style="display: inline-block">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
                                                                           class="white-color"
-                                                                          style="/*display: none*/"></span>&nbsp;人
+                                                                          style="display: inline-block"></span>&nbsp;人
             </span>
             
             <br>
