@@ -1,0 +1,1316 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta name="keywords" content="【机器学习】Boston房价数据分析(2), DX3906">
+    <meta name="description" content="世界上只有一种真正的英雄主义，那就是在认识生活的真相后依然热爱生活">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【机器学习】Boston房价数据分析(2) | DX3906</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.svg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">DX3906</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.svg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">DX3906</div>
+        <div class="logo-desc">
+            
+            世界上只有一种真正的英雄主义，那就是在认识生活的真相后依然热爱生活
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/source/medias/')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【机器学习】Boston房价数据分析(2)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+        
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                                <span class="chip bg-color">数据分析</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-16
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    25 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy" style="display: inline-block">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0. 写在前面"></a>0. 写在前面</h1><p>  这是Boston房价数据分析的第二部分，中期的模型搭建与训练评估。大致的流程是，从原始论文的假设出发，先看看原作者对于该数据集的应用方式以及他所论证的问题。<del>然后把文献的reference限制在相近的年份中，寻找在1978这个年代中使用该数据集的一些paper，这些paper的侧重点和研究方法会有不同，这里暂时先简单的做一下，因为这个项目还是需要机器学习的应用，如果纯写academic的话就太枯燥了，而且1978年的Boston，研究价值不大</del><br>  为了以更加舒服的方式写这篇分析，可能会有中英文混用，等这个项目完成了有空可以详细翻译一下。其次是文中文献引用格式非常不标准，用markdown写有点麻烦，就随便引用了一下，保证可以找到原文即可。<br>  <img src="%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.jpg" alt="分析流程"></p>
+<h1 id="1-理论假设基础"><a href="#1-理论假设基础" class="headerlink" title="1. 理论假设基础"></a>1. 理论假设基础</h1><h2 id="1-1-原始数据集论文详解"><a href="#1-1-原始数据集论文详解" class="headerlink" title="1.1 原始数据集论文详解"></a>1.1 原始数据集论文详解</h2><p>  这个数据集来自 Harrison and Rubinfeld<code>Harrison Jr, D., &amp; Rubinfeld, D. L. (1978). Hedonic housing prices and the demand for clean air.</code> 这篇论文的research goal是构建一个模型，用housing market data去measure the willingness to pay for clean air，所以本意上来说，数据集原始地应用场景是考量 housing market data和willingness to pay for clean air的关系，简单点说就是<strong>愿意花钱去买好房子=愿意花钱购买好的空气质量</strong>。</p>
+<p>  文章分为5个Sections (除过Introduction)</p>
+<p>  Section 2描述了一个four-step procedural model用来提出基本的实证研究。Step1是把空气质量作为享乐型房屋的属性，构建房屋价值模型; Step2是依据这个享乐型房屋价值模型，计算人们愿意为了 marginal change in air pollution 付出的意愿; Step3是通过先前的估计，来预估这种willingness在城市地区的模型，实际上就是愿意为了好的空气而付出的成本; Step4就是通过这个模型，来预估，当控制空气污染的策略生效，会给每单位房价带来的benefits (理解为，付出 $1来控制环境污染，那么购买房屋所花费的 $1会给房屋价值带来多少的提升)。</p>
+<p>  这个模型有一个前提假设，即房屋效用(U)是一系列属性的集合，而非只具有单一商品属性(housing is appropriately viewed as a bundle of attributes, rather than as a single commodity)，而air pollution是attributes中的一项 $a$。<br>$$<br>U(x,h)\<br>y = x + p(h) +T<br>$$<br>  其中，$h$ 是房屋属性的集合即 ${h_1,h_2,…, h_n}$，$p(h)$是每个地方房屋价格的函数，$T$是运输成本，$x$是单位价格下复合私人产品的数量 (这里有些模糊，后面看看有没有具体解释)，$y$是budget。要使得 $U(x, h)$ 最大化，需要服从 $y$ 这个budget限制，即房屋价值不能超过其预算价值，而预算价值是由其属性构成的。</p>
+<p>  基于这个描述，Harrison提出了四点点关于享乐型住房的假设，</p>
+<ol>
+<li>所有的顾客可以准确的感知不同地区房屋所具有的 $h$ 属性 (\向量，$\vec h$ )</li>
+<li>$ \vec h$ 的变化是连续的，所以 $ p(h) $ 房屋价格的变化是连续的，其一阶导和二阶导都是连续的</li>
+<li>市场处于短期均衡</li>
+<li>所有由于空间变化所产生的房屋属性 $ \vec h$ 的变化都可以被转换为房屋价格的变化</li>
+</ol>
+<p>*<em>这里需要注意，Harrison说明的很清楚，房屋属性与房屋价格的关系不一定是线性的 ( $p(h)$ relationship between housing attributes and house prices *need not to be linear</em>)， 而非线性关系产生的原因是，市场不处于长期均衡 (Nonlinearities may exist in part because the market may not be in long-run equilibrium)，延申的去推断，根据假设3，这篇文章里使用的应该是线性关系。并且，房屋属性的集合不能被拆分重组为任意的属性集合 (housing attributes cannot to untied and repackaged to produce an arbitrary set of attributes at all locations) ** </p>
+<p>  Step2是构建willingness to pay for marginal changes in air pollution, 一提到marginal，首先想到导数，所以在这部分，Harrison提出 “人们愿意为了小小地提升空气质量的付出 等同于 购买或租赁具有相同其他属性房屋所产生的投入的增加”，即 $[W_a(h)] = [p_a(h)]$<br>$$<br>W_a(h) = \frac {\partial U/ \partial(-a)} {\partial U/ \partial x} = \frac {\partial p(h)} {\partial (-a)} = p_a(h)<br>$$<br> Step3则是通过回归方法来估计 $W_a(h)$，这个step在section4。即当air pollution或者其他变量(household income)发生改变时，对于cleaner air的需求也会发生改变。在预估 $W_a(h)$ 之前需要先明确从可以获得的housing market data中，能不能识别出 $W_a(h)$ 。在这里，Harrison假设房屋的供求关系对于air pollution是锚定的，或者说sensitive是极低的，也就是说 $p(h)$ 受 $a$ 影响而非市场供给变化的影响。p.s 这种假设只是为了方便研究，市场对于房屋价格的影响在现实生活中是不可忽视的，在短期供需关系稳定的市场下，房价的波动<strong>可能</strong>也不会特别明显。thus, in my opinion, 一般情况下房价还是受到市场影响程度比较高(政策也是影响因素之一，在中国)，这与是否长期供求稳定关系不大，所以用纯线性关系来预测解释略有不妥。</p>
+<p>Step4就是关于控制环境污染，与其带来的收益的关系讨论了，在section5有讨论。下面会具体结合paper与dataset来进行解读，对于论文中提到的分析方法着重研究。</p>
+<p>首先，文章主要是在探讨空气质量和房屋价格，所以他的处理方式都是围绕着空气质量和房屋价格的关系来的。</p>
+<p><code>NOX</code>是衡量air pollution的重要指标，<code>MEDV</code>作为因变量的效果不如<code>Log(MEDV)</code>， 因为<code>Log(MEDV)</code>可以着重关注于<code>NOX</code>的非线性项。这里同时还有对<code>NOX</code>的转换问题，因为不同的计算方法会导致作用在房价的方式不同，论文采用的是 ${NOX}^2$ (原表达式是, ${NOX}^{p-1}/(p-1)$, p是NOX的参数) 。<code>NOX</code>呈现的负相关表现，是重点， 论文里还有一个<code>PART</code>也是和<code>NOX</code>一样，反映空气质量的。对于 ${NOX}^p$ 中 $p$ 值的选择，论文尝试了很多种，在原文Section5有详细的解释。</p>
+<p>当删除<code>DIS</code>和<code>RAD</code>的时候，<code>NOX</code>的影响系数会从-0.0064上升到-0.0036，对此现象的原因是，Boston就业中心和公路附近的<code>NOX</code>比较高，删除这两项会削弱<code>NOX</code>的影响能力，结论是不应该删除。</p>
+<p>当删除<code>LSTAT</code>时，<code>NOX</code>的影响系数会从-0.0064下降到-0.0081，对此现象的解释是，当删除<code>LSTAT</code>时，会把把<code>NOX</code>浓度归因于低层次人群导致的，而非其他复杂因素。</p>
+<p>原文中的table1列举了5个等式，分为两类：Linear和Log-Log， 其中 $R^2$表现最好的是0.64，方程有两个：<br>$$<br>\log W = 1.05+0.78\log{Nox}+1.01\log {INC} -  0.24\log {PDU} \</p>
+<p>\log W = 2.20+0.97\log {NOX} + 0.80\log{INC} \</p>
+<ul>
+<li>0.03(Y_1)(\log{NOX})- 0.07(Y_2)(\log{NOX})<br>$$</li>
+</ul>
+<p>而最终方程式的关系是：<br>$$<br>\log (MEDV) = a_1+a_2{RM^2}+a_3{AGE}+a_4\log {DIS} \</p>
+<ul>
+<li>a_5\log{RAD}+a_6{TAX}+a_7{PTRATIO}+a_8{(B-0.63)^2}\</li>
+<li>a_9\log{LSTAT}+ a_{10}{CRIM}+a_{11}{ZN}+a_{12}{INDUS}\</li>
+<li>a_{13}{CHAS}+ a_{14}{NOX}^p + \epsilon<br>$$</li>
+</ul>
+<p>从这个方程中主要看到的是Harrison如何处理各个变量，使得最后的equation最佳，其中各个变量的含义和<code>sklearn.dataset.load_boston()</code>返回的数据集定义有些许不同，具体如下(原论文Table 4)</p>
+<p><img src="%E5%8F%98%E9%87%8F%E8%A7%A3%E9%87%8A.png" alt="变量"></p>
+<p>着重看一下与dataset表意不同的几个变量</p>
+<ol>
+<li>$B$ 在原数据集中等于 $1000(B_k-0.63)^2$, 其中 $B_k$才是黑人比例。 而在这里是 $B$  就是黑人比例，处理在equation中是 $ (B-0.63)^2 $, 对比dataset的处理缩放了1000倍，这与第一部分中对于用 $B$ 反推 $B_k $ 并且缩放的判断基本相似。Harrison还解释了，为什么 $B$ 的形态是一个曲线：<strong>在 $B$ 的中低水平下，如果白人邻居对黑人视为不受欢迎的邻居类型， $B$ 发生增长将会带来housing price的负面影响。但是，市场歧视同时意味着当 $B$ 特别高的时候，housing price也会很高</strong>。 可以理解为，黑人在白人为主的社区中不受欢迎，但是在以黑人为主的社区中就不存在这样的问题。</li>
+<li><code>LSTAT</code>中需要注意，取对数的意义是：<strong>社会经济地位的区别在上层社会中的意义要大于下层阶级</strong></li>
+<li><code>MEDV</code>在论文中没有用 $’000 表示</li>
+<li><code>NOX</code>在论文中的单位是 per 100 million</li>
+<li><code>PART</code>没有出现在 dataset中</li>
+</ol>
+<p>在结束对原论文的分析后，可以发现 1. 如果要复现paper的研究，则不能删除变量，所以在传统的 linear model 中不讨论feature selection  2. 可以不用线性模型去做分析 3. paper的关注重点是air pollution 和 housing value，这种侧重决定了关于变量的处理是围绕 <code>NOX</code>来进行的，在后续模型中，如果采用不同的侧重点，则对features的处理方式也可以改变</p>
+<h2 id="1-2-其他论文的发现"><a href="#1-2-其他论文的发现" class="headerlink" title="1.2  其他论文的发现"></a>1.2  其他论文的发现</h2><p>  主要是对于 $B$ 和 <code>LSTAT</code>的一些文章，没有详细的去看，引用的方式也很不标准。</p>
+<p><code>Schafer, R. (1979). Racial discrimination in the Boston housing market. Journal of Urban Economics, 6(2), 176-196.</code> 这篇文章提出：*<em>黑人和低水平人群在房屋上的消费更高，白人愿意为了远离黑人社区而支付更高的购房价格，所以种族歧视现象在Boston Housing Market中存在的现象比较明显 *</em>， 类似观点的还有<code>Feins, J. D., &amp; Bratt, R. G. (1983). Barred in Boston: Racial discrimination in housing. Journal of the American Planning Association, 49(3), 344-355.</code></p>
+<p>基于这个观点，$B$ 可能不是像Harrison表述的是一个曲线，而应该是 $B_K$ 对 <code>MEDV</code>有正相关。所以在做模型的时候有不同的选择， 到底是用 $B$ 还是 $B_K$ 会对模型产生不同的影响。</p>
+<h1 id="2-构建基本模型"><a href="#2-构建基本模型" class="headerlink" title="2. 构建基本模型"></a>2. 构建基本模型</h1><p>终于到了要敲代码的地方了，在这里构建的模型主要会被分为两大类，第一，关于机器学习的模型；第二，关于神经网络的模型。在这里需要注意的是，机器学习的模型可以手撸，或者好好看看<code>scikit-learn</code>的<a href="https://scikit-learn.org/stable/" target="_blank" rel="noopener">文档</a>，里面真的什么都有。</p>
+<p>整个机器学习的模型设计思路比较简单，<code>数据切割-输入-拟合-输出-真实值比对</code>，其中，最重要的应该是对比真实值的结果，也就是拟合的程度。对比真实值，或者话说评估模型拟合程度的标准有很多，比如<code>MSE均方误差</code>，<code>RMSE根均方误差</code>， <code>MAE平均绝对值误差</code>，<code>R²决定系数</code>等等，在传统的统计学研究中，<code>R²</code>似乎是一个必须的选项。</p>
+<h2 id="2-1-机器学习模型"><a href="#2-1-机器学习模型" class="headerlink" title="2.1 机器学习模型"></a>2.1 机器学习模型</h2><h3 id="2-1-1-LiR线性回归"><a href="#2-1-1-LiR线性回归" class="headerlink" title="2.1.1  LiR线性回归"></a>2.1.1  LiR线性回归</h3><p>先来看看传统的未经处理的数据来进行LiR拟合</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_boston
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>linear_model <span class="token keyword">import</span> LinearRegression
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment" spellcheck="true"># 准备数据</span>
+data_boston <span class="token operator">=</span> load_boston<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 训练集和数据集准备 2/8分</span>
+x_train<span class="token punctuation">,</span> x_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">,</span> data_boston<span class="token punctuation">.</span>target<span class="token punctuation">,</span> train_size<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 定义训练器</span>
+LiR <span class="token operator">=</span> LinearRegression<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 拟合</span>
+LiR<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 预测</span>
+y_predict <span class="token operator">=</span> LiR<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 打分用的函数</span>
+LiR_standard_list <span class="token operator">=</span> <span class="token punctuation">[</span>mean_squared_error<span class="token punctuation">,</span> mean_absolute_error<span class="token punctuation">,</span> mean_gamma_deviance<span class="token punctuation">,</span>
+                     mean_poisson_deviance<span class="token punctuation">,</span> mean_squared_log_error<span class="token punctuation">,</span> mean_tweedie_deviance<span class="token punctuation">,</span>
+                     median_absolute_error<span class="token punctuation">,</span> r2_score<span class="token punctuation">,</span> max_error<span class="token punctuation">,</span> explained_variance_score<span class="token punctuation">]</span>
+
+
+<span class="token comment" spellcheck="true"># 得分</span>
+<span class="token keyword">def</span> <span class="token function">get_score</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> func <span class="token keyword">in</span> standard_list<span class="token punctuation">:</span>
+        score <span class="token operator">=</span> func<span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{name}模型下, {func.__name__} 的得分是：{score}"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_predict<span class="token punctuation">,</span> LiR_standard_list<span class="token punctuation">,</span> <span class="token string">"LiR"</span><span class="token punctuation">)</span>
+
+
+<span class="token triple-quoted-string string">"""
+LiR模型下, mean_squared_error 的得分是：31.64095718595386
+LiR模型下, mean_absolute_error 的得分是：3.7595557151678958
+LiR模型下, mean_gamma_deviance 的得分是：0.10751142753841245
+LiR模型下, mean_poisson_deviance 的得分是：1.471514913731351
+LiR模型下, mean_squared_log_error 的得分是：0.0732933580733745
+LiR模型下, mean_tweedie_deviance 的得分是：31.64095718595386
+LiR模型下, median_absolute_error 的得分是：2.791386530941134
+LiR模型下, r2_score 的得分是：0.6223503006075446
+LiR模型下, max_error 的得分是：24.81682723887205
+LiR模型下, explained_variance_score 的得分是：0.6284632981767782
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在线性回归模型中，R²的得分很低，函数其实拟合的并不好，在自己测试的时候，通常要40000次左右的拟合，才会让score到90%以上，平均的得分只有70%左右，说明LiR这种模型多少还是有些不太给力。在原paper中也有提到用Log做处理，在这里模拟一下这个equation，流程是先处理输入值需要进行log的feature，然后把输出的y_predict进行log</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token triple-quoted-string string">"""
+columns的名字和位置
+
+RM 5 ,NOX 4 平方处理
+DIS 7,RAD 8,LSTAT 12  Log处理
+MEDV 0 先扩大1000，再log 
+B 11  缩小1000
+"""</span>
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_boston
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>linear_model <span class="token keyword">import</span> LinearRegression
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> <span class="token operator">*</span>
+
+<span class="token comment" spellcheck="true"># data准备</span>
+data_boston <span class="token operator">=</span> load_boston<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 预处理data，用新的数组存储</span>
+data <span class="token operator">=</span> np<span class="token punctuation">.</span>ndarray<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">506</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>float64<span class="token punctuation">)</span>
+data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>square<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>log<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>log<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>target <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">=</span> data_boston<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">]</span> <span class="token operator">/</span> <span class="token number">1000</span>
+data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> data_boston<span class="token punctuation">.</span>data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 分割数据</span>
+x_train<span class="token punctuation">,</span> x_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span> data<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> train_size<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 定义训练器</span>
+LiR <span class="token operator">=</span> LinearRegression<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 拟合</span>
+LiR<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 预测</span>
+y_predict <span class="token operator">=</span> LiR<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+
+LiR_standard_list <span class="token operator">=</span> <span class="token punctuation">[</span>mean_squared_error<span class="token punctuation">,</span> mean_absolute_error<span class="token punctuation">,</span> mean_gamma_deviance<span class="token punctuation">,</span>
+                     mean_poisson_deviance<span class="token punctuation">,</span> mean_squared_log_error<span class="token punctuation">,</span> mean_tweedie_deviance<span class="token punctuation">,</span>
+                     median_absolute_error<span class="token punctuation">,</span> r2_score<span class="token punctuation">,</span> max_error<span class="token punctuation">,</span>
+                     explained_variance_score<span class="token punctuation">]</span>
+
+
+<span class="token comment" spellcheck="true"># 得分</span>
+<span class="token keyword">def</span> <span class="token function">get_score</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> func <span class="token keyword">in</span> standard_list<span class="token punctuation">:</span>
+        score <span class="token operator">=</span> func<span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{name}模型下, {func.__name__} 的得分是：{score}"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_predict<span class="token punctuation">,</span> LiR_standard_list<span class="token punctuation">,</span> <span class="token string">"修正LiR"</span><span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+修正LiR模型下, mean_squared_error 的得分是：0.04546153727331139
+修正LiR模型下, mean_absolute_error 的得分是：0.14697102771927917
+修正LiR模型下, mean_gamma_deviance 的得分是：0.0005009416265240928
+修正LiR模型下, mean_poisson_deviance 的得分是：0.004766181400402059
+修正LiR模型下, mean_squared_log_error 的得分是：0.00041154977533747986
+修正LiR模型下, mean_tweedie_deviance 的得分是：0.04546153727331139
+修正LiR模型下, median_absolute_error 的得分是：0.11980174212924855
+修正LiR模型下, r2_score 的得分是：0.7602699415038849
+修正LiR模型下, max_error 的得分是：0.968815515553997
+修正LiR模型下, explained_variance_score 的得分是：0.7625003112255664
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以发现，整个模型确实表现得更好了，但是这里也需要注意一下，整个get_score过程只有一次，是根据train_test_split所选取的x_train, y_train而来的，这里应该进行对折比对，循环切割n次数据集，得到总的平均得分，这样才能消除模型的偶然性positive或者negative得分，用平均得分来大致表示模型的拟合效果。</p>
+<p>However，直接用最小二乘法会有个问题，那就是<strong>只有当矩阵 $X$ 是满秩的时候，才可以用最小二乘法。也就是多个因变量必须是相互独立的，如果相互之间关联较强，或者样本点比较少的时候，很可能造成$X$就不是满秩的，因为$X^{-1}$是不可逆的</strong>，而我们这个数据集中的共线性还是明显存在的，所以可以尝试使用带有<code>L1</code>,<code>L2</code>正则化的广义线性模型来处理，分别由<code>LASSO(L1)</code>和<code>Ridge(L2)</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_boston
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>linear_model <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> <span class="token operator">*</span>
+
+data_boston <span class="token operator">=</span> load_boston<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x_train<span class="token punctuation">,</span> x_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">,</span> data_boston<span class="token punctuation">.</span>target<span class="token punctuation">,</span> train_size<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+lasso <span class="token operator">=</span> LassoCV<span class="token punctuation">(</span>cv<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> n_jobs<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> n_alphas<span class="token operator">=</span><span class="token number">2000</span><span class="token punctuation">)</span>
+ridge <span class="token operator">=</span> RidgeCV<span class="token punctuation">(</span>cv<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> alphas<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.2</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token number">3.0</span><span class="token punctuation">,</span> <span class="token number">5.0</span><span class="token punctuation">,</span> <span class="token number">10.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+lasso<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+ridge<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+lasso_predict <span class="token operator">=</span> lasso<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+ridge_predict <span class="token operator">=</span> ridge<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+
+standard_lists <span class="token operator">=</span> <span class="token punctuation">[</span>mean_squared_error<span class="token punctuation">,</span> mean_absolute_error<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># mean_gamma_deviance,</span>
+                  mean_poisson_deviance<span class="token punctuation">,</span> mean_squared_log_error<span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># mean_tweedie_deviance,</span>
+                  median_absolute_error<span class="token punctuation">,</span> r2_score<span class="token punctuation">,</span> max_error<span class="token punctuation">,</span>
+                  explained_variance_score<span class="token punctuation">]</span>
+
+
+<span class="token comment" spellcheck="true"># 得分</span>
+<span class="token keyword">def</span> <span class="token function">get_score</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> func <span class="token keyword">in</span> standard_list<span class="token punctuation">:</span>
+        score <span class="token operator">=</span> func<span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{name}模型下, {func.__name__} 的得分是：{score}"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> lasso_predict<span class="token punctuation">,</span> standard_lists<span class="token punctuation">,</span> <span class="token string">"Lasso"</span><span class="token punctuation">)</span>
+    get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> ridge_predict<span class="token punctuation">,</span> standard_lists<span class="token punctuation">,</span> <span class="token string">"Ridge"</span><span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+注意，评分的时候需要把mean_gamma_deviance 和 mean_tweedie_deviance两个删除掉，不然会报错
+Lasso模型下, mean_squared_error 的得分是：25.743721143836865
+Lasso模型下, mean_absolute_error 的得分是：3.7328843155458724
+Lasso模型下, mean_poisson_deviance 的得分是：0.9214281693677849
+Lasso模型下, mean_squared_log_error 的得分是：0.03447203694086201
+Lasso模型下, median_absolute_error 的得分是：2.831462338823245
+Lasso模型下, r2_score 的得分是：0.6865925900801331
+Lasso模型下, max_error 的得分是：17.894130269052802
+Lasso模型下, explained_variance_score 的得分是：0.6870996145995208
+
+Ridge模型下, mean_squared_error 的得分是：19.136565333389388
+Ridge模型下, mean_absolute_error 的得分是：3.183047279909366
+Ridge模型下, mean_poisson_deviance 的得分是：0.6738900372570746
+Ridge模型下, mean_squared_log_error 的得分是：0.025707369207744177
+Ridge模型下, median_absolute_error 的得分是：2.5099659672183936
+Ridge模型下, r2_score 的得分是：0.7670289643680469
+Ridge模型下, max_error 的得分是：15.629044054083195
+Ridge模型下, explained_variance_score 的得分是：0.7685006048843454
+"""</span>    
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>详细介绍一下各个score的算法</p>
+<p><code>mean_squared_error</code>:  $\text{MSE}(y, \hat{y}) = \frac{1}{n_\text{samples}} \sum_{i=0}^{n_\text{samples} - 1} (y_i - \hat{y}_i)^2.$ Best</p>
+<p><code>mean_absolute_error</code>:  $\text{MAE}(y, \hat{y}) = \frac{1}{n_{\text{samples}}} \sum_{i=0}^{n_{\text{samples}}-1} \left| y_i - \hat{y}_i \right|.$ Best</p>
+<p><code>mean_tweedie_deviance</code>; <code>mean_poisson_deviance (power=1)</code> , <code>mean_gamma_deviance (power=2)</code>, <code>mean_squared_error (power=0)</code>: </p>
+<p>$$<br>\begin{split}\text{D}(y, \hat{y}) = \frac{1}{n_\text{samples}}<br>\sum_{i=0}^{n_\text{samples} - 1}<br>\begin{cases}<br>(y_i-\hat{y}<em>i)^2, &amp; \text{for }p=0\text{ (Normal)}\<br>2(y_i \log(y/\hat{y}_i) + \hat{y}_i - y_i),  &amp; \text{for}p=1\text{ (Poisson)}\<br>2(\log(\hat{y}_i/y_i) + y_i/\hat{y}_i - 1),  &amp; \text{for}p=2\text{ (Gamma)}\<br>2\left(\frac{\max(y_i,0)^{2-p}}{(1-p)(2-p)}-<br>\frac{y,\hat{y}^{1-p}_i}{1-p}+\frac{\hat{y}^{2-p}_i}{2-p}\right),<br>&amp; \text{otherwise}<br>\end{cases}\end{split}<br>$$<br><code>mean_squared_log_error</code>: $\text{MSLE}(y, \hat{y}) = \frac{1}{n_\text{samples}} \sum</em>{i=0}^{n_\text{samples} - 1} (\log_e (1 + y_i) - \log_e (1 + \hat{y}_i) )^2.$</p>
+<p><code>median_absolute_error</code>: $\text{MedAE}(y, \hat{y}) = \text{median}(\mid y_1 - \hat{y}_1 \mid, \ldots, \mid y_n - \hat{y}_n \mid).$</p>
+<p><code>R²</code>:  $R^2(y, \hat{y}) = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}<em>i)^2}{\sum</em>{i=1}^{n} (y_i - \bar{y})^2}$</p>
+<p><code>max_error</code> : $\text{Max Error}(y, \hat{y}) = max(| y_i - \hat{y}_i |)$</p>
+<p>在参考的博文中，发现LiR模型和kNN模型的得分差距不大，但是在SVR和LiR对比时，LiR普遍在<code>R²</code>得分较高，而SVR在MAE等得分较高，所以就把SVR作为第二个机器学习的模型来进行尝试。</p>
+<h3 id="2-1-2-SVR支持向量机回归"><a href="#2-1-2-SVR支持向量机回归" class="headerlink" title="2.1.2 SVR支持向量机回归"></a>2.1.2 SVR支持向量机回归</h3><p>传统回归方法当且仅当回归f(x)完全等于y时才认为预测正确，如线性回归中常用$(f(x)−y)^2$来计算其损失。而支持向量回归则认为只要$f(x)$与$y$偏离程度不要太大，既可以认为预测正确，不用计算损失，具体的，就是设置阈值α,只计算 $|f(x)−y|&gt;α$ 的数据点的loss</p>
+<p>简单点说，LiR下预测出来的是一条线，误差是散点与线的之间的差，从数学角度来说：点无大小，线无粗细，所以平面上的散点完全落在直线上的概率很低，这也是LiR不能完全准确的预测出$y$值的原因，也是导致过拟合或者欠拟合的一种可能。在SVR的视角下，根据<code>kernel</code>的不同，预测的是一个区域，凡是在区域内的点都“可以”被视为无误差的，加之<code>C</code>惩罚因子的存在，既能考虑离群点，又能防止过拟合，很棒棒哦。</p>
+<pre class="line-numbers language-python"><code class="language-python">
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>svm <span class="token keyword">import</span> SVR
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_boston
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> <span class="token operator">*</span>
+
+data_boston <span class="token operator">=</span> load_boston<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x_train<span class="token punctuation">,</span> x_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">,</span> data_boston<span class="token punctuation">.</span>target<span class="token punctuation">,</span> train_size<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+poly_svr <span class="token operator">=</span> SVR<span class="token punctuation">(</span>kernel<span class="token operator">=</span><span class="token string">'poly'</span><span class="token punctuation">)</span>
+liner_svr <span class="token operator">=</span> SVR<span class="token punctuation">(</span>kernel<span class="token operator">=</span><span class="token string">'linear'</span><span class="token punctuation">)</span>
+rbf_svr <span class="token operator">=</span> SVR<span class="token punctuation">(</span>kernel<span class="token operator">=</span><span class="token string">'rbf'</span><span class="token punctuation">)</span>
+svr_list <span class="token operator">=</span> <span class="token punctuation">[</span>poly_svr<span class="token punctuation">,</span> liner_svr<span class="token punctuation">,</span> rbf_svr<span class="token punctuation">]</span>
+standard_list <span class="token operator">=</span> <span class="token punctuation">[</span>mean_squared_error<span class="token punctuation">,</span> mean_absolute_error<span class="token punctuation">,</span> median_absolute_error<span class="token punctuation">,</span>
+                 v_measure_score<span class="token punctuation">,</span> r2_score<span class="token punctuation">,</span> max_error<span class="token punctuation">,</span> explained_variance_score<span class="token punctuation">]</span>
+
+
+<span class="token keyword">def</span> <span class="token function">get_score</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> sc <span class="token keyword">in</span> standard_list<span class="token punctuation">:</span>
+        score <span class="token operator">=</span> sc<span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{name}模型下, {sc.__name__} 的得分是：{score}"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> func <span class="token keyword">in</span> svr_list<span class="token punctuation">:</span>
+        func<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+        y_predict <span class="token operator">=</span> func<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+        get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> func<span class="token punctuation">.</span>kernel<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">"""
+poly模型下, mean_squared_error 的得分是：37.50059531965942
+poly模型下, mean_absolute_error 的得分是：4.069654995770053
+poly模型下, median_absolute_error 的得分是：2.703214692506716
+poly模型下, v_measure_score 的得分是：0.9654092985785466
+poly模型下, r2_score 的得分是：0.25681850585358934
+poly模型下, max_error 的得分是：35.04311418113312
+poly模型下, explained_variance_score 的得分是：0.25991748287715377
+
+linear模型下, mean_squared_error 的得分是：17.365140241461017
+linear模型下, mean_absolute_error 的得分是：2.564467175077125
+linear模型下, median_absolute_error 的得分是：1.905132283343118
+linear模型下, v_measure_score 的得分是：0.9654092985785466
+linear模型下, r2_score 的得分是：0.6558601067342158
+linear模型下, max_error 的得分是：28.458002879364713
+linear模型下, explained_variance_score 的得分是：0.656437977890237
+
+rbf模型下, mean_squared_error 的得分是：38.158738286894895
+rbf模型下, mean_absolute_error 的得分是：4.197313783839424
+rbf模型下, median_absolute_error 的得分是：3.359745270874889
+rbf模型下, v_measure_score 的得分是：0.9654092985785466
+rbf模型下, r2_score 的得分是：0.24377552161340066
+rbf模型下, max_error 的得分是：34.603823044964656
+rbf模型下, explained_variance_score 的得分是：0.2452859318065379
+"""</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到，我自己做出来的数据和参考博文的情况不太一致，一般情况下来说，rbf的kernel应该是拟合情况最好的，可是MAE普遍较大，而且R²真的是表现不佳。</p>
+<h3 id="2-1-3-GBM-梯度提升机"><a href="#2-1-3-GBM-梯度提升机" class="headerlink" title="2.1.3 GBM 梯度提升机"></a>2.1.3 GBM 梯度提升机</h3><p>GBM是一种Boosting的实例算法，其核心思想是<code>分阶段集合弱预测模型以产生新的模型</code>, 这种算法梯度增强以迭代方式将弱的“学习器”组合为一个强学习器。最简单的解释是在最小二乘回归中，通过最小化均方误差(MSE)，“教”模型预测实数值 $ \hat{y}$。再简单一点说，线性回归的一个基本假设是其残差之和为0，即残差应该在0左右随机分布，GBM的思想就是迭代优化那些离散程度大的点，使其拟合程度更好，而这个过程也就是在优化MSE使其最小。</p>
+<p>而同家族Boosting算法下，还有GBDT基于回归树的梯度提升算法，也叫提升树算法BRT，其核心原理和GBM类似，是迭代多棵回归树来共同决策。当采用MSE时，每一棵回归树学习的是之前所有树的结论和残差，拟合得到一个当前的残差回归树，提升树即是整个迭代过程生成的回归树的累加。</p>
+<p>在先前的博客中看到有人使用LightGBM(GBDT升级版)，并且有不错的结果，那么这里就看一下LGBM的表现。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> lightgbm<span class="token punctuation">.</span>sklearn <span class="token keyword">import</span> LGBMRegressor
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_boston
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> <span class="token operator">*</span>
+
+data_boston <span class="token operator">=</span> load_boston<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x_train<span class="token punctuation">,</span> x_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>data_boston<span class="token punctuation">.</span>data<span class="token punctuation">,</span> data_boston<span class="token punctuation">.</span>target<span class="token punctuation">,</span> train_size<span class="token operator">=</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+LGBM <span class="token operator">=</span> LGBMRegressor<span class="token punctuation">(</span>objective<span class="token operator">=</span><span class="token string">"regression"</span><span class="token punctuation">,</span>
+                     boosting_type<span class="token operator">=</span><span class="token string">'gbdt'</span><span class="token punctuation">,</span>
+                     num_iterations<span class="token operator">=</span><span class="token number">300</span><span class="token punctuation">,</span>
+                     learning_rate<span class="token operator">=</span><span class="token number">0.01</span><span class="token punctuation">,</span>
+                     num_leaves<span class="token operator">=</span><span class="token number">31</span><span class="token punctuation">,</span>
+                     num_threads<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">,</span>
+                     n_estimators<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span>
+
+LGBM<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+y_predict <span class="token operator">=</span> LGBM<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>x_test<span class="token punctuation">)</span>
+
+standard_list <span class="token operator">=</span> <span class="token punctuation">[</span>mean_squared_error<span class="token punctuation">,</span> mean_absolute_error<span class="token punctuation">,</span> mean_gamma_deviance<span class="token punctuation">,</span>
+                 mean_poisson_deviance<span class="token punctuation">,</span> mean_squared_log_error<span class="token punctuation">,</span> mean_tweedie_deviance<span class="token punctuation">,</span>
+                 median_absolute_error<span class="token punctuation">,</span> v_measure_score<span class="token punctuation">,</span> r2_score<span class="token punctuation">,</span> max_error<span class="token punctuation">,</span>
+                 explained_variance_score<span class="token punctuation">]</span>
+
+
+<span class="token comment" spellcheck="true"># 得分</span>
+<span class="token keyword">def</span> <span class="token function">get_score</span><span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> func <span class="token keyword">in</span> standard_list<span class="token punctuation">:</span>
+        score <span class="token operator">=</span> func<span class="token punctuation">(</span>real<span class="token punctuation">,</span> predict<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"{name}模型下, {func.__name__} 的得分是：{score}"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    get_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_predict<span class="token punctuation">,</span> standard_list<span class="token punctuation">,</span> <span class="token string">"LGBM"</span><span class="token punctuation">)</span>
+
+
+<span class="token triple-quoted-string string">"""
+LGBM模型下, mean_squared_error 的得分是：9.664227163518742
+LGBM模型下, mean_absolute_error 的得分是：2.083257201677075
+LGBM模型下, mean_gamma_deviance 的得分是：0.027396120698409937
+LGBM模型下, mean_poisson_deviance 的得分是：0.48653665987789796
+LGBM模型下, mean_squared_log_error 的得分是：0.02481375736532234
+LGBM模型下, mean_tweedie_deviance 的得分是：9.664227163518742
+LGBM模型下, median_absolute_error 的得分是：1.3402386997906603
+LGBM模型下, v_measure_score 的得分是：0.9799501732117103
+LGBM模型下, r2_score 的得分是：0.858467809515831
+LGBM模型下, max_error 的得分是：12.839740252866987
+LGBM模型下, explained_variance_score 的得分是：0.8586600270975745    
+"""</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>整体下来LGBM的得分确实很好，这可能也是为什么比赛里很多人都使用GBM算法的原因了。</p>
+<h2 id="2-2-神经网络模型"><a href="#2-2-神经网络模型" class="headerlink" title="2.2 神经网络模型"></a>2.2 神经网络模型</h2><p>原本计划参考用NN和BP网络去做回归，可是发现模型没有解释意义，构建一个单输入和单输出，最后不用激活函数的神经网络，虽然可以应用于连续回归问题，但是其解释意义太弱了，不如单纯的机器学习模型。所以暂时不用网络去做了，等自己再学习学习，看看有没有好的解释办法。</p>
+<h1 id="3-写在最后"><a href="#3-写在最后" class="headerlink" title="3. 写在最后"></a>3. 写在最后</h1><p>这部分东西拖了很久才做，中途好多事情影响。1. 写了个链家的爬虫，结果IP池做的不好，爬取成功率只有80%左右，然后又去优化了IP池，改成了高匿池。2. 把原来不用的笔记本翻出来，做了个arch的虚拟机，把爬虫放上去调试了一段时间 3. 受疫情影响，求学就业之路不顺，自闭了很久。 3. 机器学习很多算法层面的东西学的不扎实，补了很多课，还是觉得不够好，又开始自闭了 4. hexo疯狂报错，真的想自己写个框架了。。。。。。</p>
+<p>慢慢来慢慢来</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://damianrice.github.io" rel="external nofollow noreferrer">米小然</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://damianrice.github.io/2020/04/16/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(2)/">https://damianrice.github.io/2020/04/16/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(2)/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://damianrice.github.io" target="_blank">米小然</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                                    <span class="chip bg-color">数据分析</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '38de28d5047d40c86345',
+        clientSecret: '4f0e0afe1939aaed08619a73e2e6e74f8ec4ab0c',
+        repo: 'damianrice.github.io',
+        owner: 'damianrice',
+        admin: "damianrice",
+        id: '2020-04-16T13-45-15',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/04/16/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(2)/">
+                    <div class="card-image">
+                        
+                        <img src="/source/medias/" class="responsive-img" alt="【机器学习】Boston房价数据分析(2)">
+                        
+                        <span class="card-title">【机器学习】Boston房价数据分析(2)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            摘要
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/09/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(1)/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/Boston1.jpg" class="responsive-img" alt="【机器学习】Boston房价数据分析(1)">
+                        
+                        <span class="card-title">【机器学习】Boston房价数据分析(1)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            经典数据集的统计学角度分析
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">数据分析</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="https://damianrice.github.io" target="_blank">米小然</a>
+            |&nbsp;基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo框架</a>
+            |&nbsp;博客主题&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv" style="display: inline-block">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                                                                        class="white-color"
+                    style="display: inline-block"></span>&nbsp;次
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv" style="display: inline-block">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                                                                          class="white-color"
+                                                                          style="display: inline-block"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/DamianRice" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:Mi007123@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!--<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+
+<!--<script language=javascript>-->
+<!--    function siteTime() {-->
+<!--        window.setTimeout("siteTime()", 1000);-->
+<!--        var seconds = 1000;-->
+<!--        var minutes = seconds * 60;-->
+<!--        var hours = minutes * 60;-->
+<!--        var days = hours * 24;-->
+<!--        var years = days * 365;-->
+<!--        var today = new Date();-->
+<!--        var todayYear = today.getFullYear();-->
+<!--        var todayMonth = today.getMonth() + 1;-->
+<!--        var todayDate = today.getDate();-->
+<!--        var todayHour = today.getHours();-->
+<!--        var todayMinute = today.getMinutes();-->
+<!--        var todaySecond = today.getSeconds();-->
+<!--        /* Date.UTC() &#45;&#45; 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳) year - 作为date对象的年份，为4位年份值 month - 0-11之间的整数，做为date对象的月份 day - 1-31之间的整数，做为date对象的天数 hours - 0(午夜24点)-23之间的整数，做为date对象的小时数 minutes - 0-59之间的整数，做为date对象的分钟数 seconds - 0-59之间的整数，做为date对象的秒数 microseconds - 0-999之间的整数，做为date对象的毫秒数 */-->
+
+<!--        // var t1 = Date.UTC(2020, 5, 25)-->
+
+<!--        //北京时间2018-2-13 00:00:00-->
+<!--        //     var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);-->
+<!--        //     var diff = t2 - t1;-->
+<!--        //     var diffYears = Math.floor(diff / years);-->
+<!--        //     var diffDays = Math.floor((diff / days) - diffYears * 365);-->
+<!--        //     var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);-->
+<!--        //     var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);-->
+<!--        //     var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);-->
+<!--        //     document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";-->
+<!--        //-->
+
+<!--        /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/-->
+<!--        siteTime();-->
+<!--    }-->
+<!--</script>-->
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</body>
+
+</html>

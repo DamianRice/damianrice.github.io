@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="【机器学习】Boston房价数据分析(1), DX3906">
     <meta name="description" content="世界上只有一种真正的英雄主义，那就是在认识生活的真相后依然热爱生活">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,11 +29,11 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -454,7 +454,7 @@
 <td>1.4.0</td>
 </tr>
 </tbody></table>
-<p>  波士顿房价数据集应该是机器学习入门的经典数据集了，在很多课程里被用来演示Linear Regression或者Ridge Regression等。也有一些博客中提到，用DNN或者BP网络去做这个数据集，还有用LiR+kNN+SVM做的综合了13个模型(是个狼灭 :smile:，但是没找到他的源代码，只有设计思路，他的结论是LGBR模型表现比较好，后面可以考虑部分复现一下)<br>  从最基础的线性回归来说，有一些博客对为什么使用岭回归，为什么做归一，为什么剔除部分特征，说的不是很清楚。所以，在这我想自己实现一下整个流程，看看这个几十年前的数据集到底能带来什么好玩的东西。</p>
+<p>  波士顿房价数据集应该是机器学习入门的经典数据集了，在很多课程里被用来演示Linear Regression或者Ridge Regression等。也有一些博客中提到，用DNN或者BP网络去做这个数据集，还有用LiR+kNN+SVM做的综合了13个模型 (是个狼灭 :smile: ，但是没找到他的源代码，只有设计思路，他的结论是LGBR模型表现比较好，后面可以考虑部分复现一下)<br>  从最基础的线性回归来说，有一些博客对为什么使用岭回归，为什么做归一，为什么剔除部分特征，说的不是很清楚。所以，在这我想自己实现一下整个流程，看看这个几十年前的数据集到底能带来什么好玩的东西。</p>
 <p>  本身想一篇文章写完的，但是光写完前期的分析部分就发现已经超长了，所以就按照设计的分析思路，把文章分成三个部分来做。这一篇主要是对于原始数据的一些分析思路，在模型构建前的准备工作。基本的分析方法都是源自统计学分析的一些东西，比如：描述性统计，箱线图，正态分布，偏度与峰度，相关系数等等。分析流程有些部分不是很严谨，毕竟是个“样本”数据集，做的有些东西也不完整，权当自己的分享学习记录。</p>
 <h1 id="1-分析流程概要"><a href="#1-分析流程概要" class="headerlink" title="1. 分析流程概要"></a>1. 分析流程概要</h1><p>  整个分析过程会分为三大块，前期的准备工作，中期假设研究和模型训练，后期结论与总结。在前期的准备工作中，主要是针对数据收集以及预处理；中期主要是针对特征值与目标值关系的探讨；后期是根据训练得出的结论总结。</p>
 <p><img src="%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.jpg" alt="分析流程"></p>
@@ -603,7 +603,7 @@ problems<span class="token punctuation">.</span>
 <p>对部分变量的注解：</p>
 <ol>
 <li><code>RM</code>在数据集中的表现是连续的，但是房间数应该被作为离散变量处理，这里RM取小数时无法解释，所以暂作离散型处理</li>
-<li><code>RAD</code>通达性指数从其所表现的含义上来说，应该是一个顺序数据或定性数据(Qualitative Data)，但是由于不知道原始的对该指数的计算方式未知，所以暂作离散型数值变量。额外提一句，Likert Scale(7级量表)会被作为连续型变量，这里到底是作为离散还是连续后面可以再讨论。</li>
+<li><code>RAD</code>通达性指数从其所表现的含义上来说，应该是一个顺序数据或定性数据(Qualitative Data)，但是由于不知道原始的对该指数的计算方式未知，所以暂作离散型数值变量。额外提一句，Likert Scale (7级量表)会被作为连续型变量，这里到底是作为离散还是连续后面可以再讨论。</li>
 <li><code>B</code>黑人指数的计算式是 $B=(B_{k}- 0.63)^2$ ，而 $B_{k}$ 表示的才是黑人比率(Ratio)， $B$ 作为运算后的结果，暂作Index指数处理，并且因为其具有连续可解释性，所以是连续数值变量</li>
 <li><code>MEDV</code>是房价的中位数，在原始数据集的表现上是离散的，且原始的房屋价格也应该是离散的，这里作为离散数据处理</li>
 </ol>
@@ -687,15 +687,15 @@ problems<span class="token punctuation">.</span>
 <td>-</td>
 </tr>
 </tbody></table>
-<p>  对上述14个变量的取值区间进行初步判断后，有如下五种数据预处理方式。把缩放和归一化分开谈的原因是，归一化的方式有很多，缩放只是其中一种，在本文里特指等比例缩放(同时乘或者除)，归一化特指的是<code>Min-Max Scaler</code>  </p>
+<p>  对上述14个变量的取值区间进行初步判断后，有如下五种数据预处理方式。把缩放和归一化分开谈的原因是，归一化的方式有很多，缩放只是其中一种，在本文里特指等比例缩放(同时乘或者除 )，归一化特指的是<code>Min-Max Scaler</code>  </p>
 <p>  $x’ = \frac{x-min(x)}{max(x)-min(x)}$</p>
-<p>  其实，更严谨一些来说，无论是<code>归一化</code>还是<code>标准化</code>，都属于<code>特征缩放(Feature scaling)</code>，大多数博客把这两种处理方式都作为数据预处理，详细的信息可以看<a href="https://en.wikipedia.org/wiki/Feature_scaling" target="_blank" rel="noopener">Feature scaling</a></p>
+<p>  其实，更严谨一些来说，无论是<code>归一化</code>还是<code>标准化</code>，都属于<code>特征缩放\(Feature scaling\)</code>，大多数博客把这两种处理方式都作为数据预处理，详细的信息可以看<a href="https://en.wikipedia.org/wiki/Feature_scaling" target="_blank" rel="noopener">Feature scaling</a></p>
 <ol>
 <li>缩放，主要针对Ratio类型，取值范围在[0, 1]之间，所以不需要进行归一化。需要缩放的是Ratio的单位，是%还是‰或者其他。并且由于缩放属于线性变换，不会破坏数据的线性关系。</li>
 <li>解释，主要针对分类变量，对不同数值表现进行解释</li>
 <li>取整，主要针对RM，虽然RM表现为连续型，但是5.2间房子没有解释意义，所以这里进行向下取整操作，对此的解释是，5.8间房不到6间且0.8间房不能作为一整间房间处理。</li>
 <li>无操作，主要针对连续定量变量，其数值本身具有尺度意义。</li>
-<li>缩放+归一化，主要针对 $B=1000(B_{k}-0.63)^2$ 指数。原因是，$F_{B}(B_{k})$ 方程的$y$轴变化幅度过大，数据的离散程度可能过高，对解释数据不利。进行缩放后，原始数据线性关系不改变(Fig. 2-1)，在下文中寻找一种合适的归一化方式，目的是提升可解释性，最终作用在模型上的时候，可以有较好的收敛表现吗，最好不要出现欠拟合与过拟合。另一种思路是找到 $B_{k}$的值，因为在description中 $B_{k}$ 才是真正的黑人比例，再对 $B_k$ 进行分析，判断是不是需要处理。</li>
+<li>缩放+归一化，主要针对 $B=1000(B_{k}-0.63)^2$ 指数。原因是，$F_{B}(B_{k})$ 方程的$y$轴变化幅度过大，数据的离散程度可能过高，对解释数据不利。进行缩放后，原始数据线性关系不改变 (Fig. 2-1)，在下文中寻找一种合适的归一化方式，目的是提升可解释性，最终作用在模型上的时候，可以有较好的收敛表现吗，最好不要出现欠拟合与过拟合。另一种思路是找到 $B_{k}$的值，因为在description中 $B_{k}$ 才是真正的黑人比例，再对 $B_k$ 进行分析，判断是不是需要处理。</li>
 </ol>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
@@ -1165,29 +1165,28 @@ heatmap_plot<span class="token punctuation">(</span><span class="token string">'
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/09/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(1)/">
+                <a href="/2020/04/16/%E3%80%90%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%91Boston%E6%88%BF%E4%BB%B7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90(2)/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/Boston1.jpg" class="responsive-img" alt="【机器学习】Boston房价数据分析(1)">
+                        <img src="/source/medias/" class="responsive-img" alt="【机器学习】Boston房价数据分析(2)">
                         
-                        <span class="card-title">【机器学习】Boston房价数据分析(1)</span>
+                        <span class="card-title">【机器学习】Boston房价数据分析(2)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            经典数据集的统计学角度分析
+                            摘要
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-09
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1200,7 +1199,6 @@ heatmap_plot<span class="token punctuation">(</span><span class="token string">'
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1556,7 +1554,7 @@ $(function () {
     
     
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>
